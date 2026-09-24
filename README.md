@@ -12,10 +12,13 @@ An Umbra toolbar widget showing the current world's hunt train:
   instances. Twelve is the total when all six zones have one instance; three
   instances in every zone give thirty-six.
 - The progress bar averages the displayed expansions' known A-rank spawn-window
-  progress, using the same calculation as HHE's A-rank timers. Confirmed living
-  marks contribute 100%. Unknown timers are excluded; hover shows their count.
-  All mode weights each known mark equally, rather than each expansion equally.
-  This measures elapsed respawn-window time, not spawn probability.
+  progress **below 100%**. Marks already at 100% are excluded until every mark in
+  the displayed roster is at 100%, when the bar fills completely. For example,
+  one mark at 100% and one at 40% gives a 40% bar. Unknown timers are excluded
+  from the average and prevent full completion; hover shows their count.
+  All mode weights each remaining known mark equally. Individual progress uses
+  the same calculation as HHE's A-rank timers: elapsed respawn-window time,
+  not spawn probability.
 - Missing HHE, logout and stale snapshots clear the previous display. Shared
   sync disconnection leaves HHE's retained local data available and is noted on
   hover. A world reported offline has unknown spawn progress.
@@ -23,7 +26,8 @@ An Umbra toolbar widget showing the current world's hunt train:
 ## Install directly from GitHub
 
 Requires **Umbra 3.1.18.0**, **Dalamud API 15** and **Hunt Helper Evolved 0.6.0.0
-or newer** with train-status IPC.
+or newer** with remaining-mark train-status data. Older HHE previews can still
+show counts and toggle the popout, but need updating to calculate this bar.
 
 > **HHE 0.6 requirement:** HHE 0.6 is currently a local preview. Its published
 > installer still serves 0.5.0.22, which does not provide this integration. The

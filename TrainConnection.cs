@@ -71,6 +71,14 @@ public sealed class TrainConnection(Func<string> read, Func<bool> toggle, Func<D
             }
             else if (row.Progress is not { } progress || !double.IsFinite(progress) || progress < 0 || progress > 1)
                 return false;
+            if (row.CompletedProgressCount is { } completed)
+            {
+                if (completed < 0 || completed > row.KnownProgressCount) return false;
+                // Leave missing counts compatible with earlier HHE previews;
+                // the presentation keeps their bar unknown and requests an update.
+                if (row.KnownProgressCount > 0 && (row.Progress!.Value * row.KnownProgressCount < completed - 1e-9
+                    || completed == row.KnownProgressCount && row.Progress.Value != 1)) return false;
+            }
             if (value.WorldOffline && row.KnownProgressCount != 0) return false;
         }
         return true;

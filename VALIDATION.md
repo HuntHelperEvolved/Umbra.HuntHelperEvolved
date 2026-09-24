@@ -1,15 +1,24 @@
 # Release validation
 
-First public companion release: **0.1.0.0**, targeting Umbra **3.1.18.0**,
-Dalamud **API 15**, and HHE **0.6.0.0** with train-status IPC.
+Companion release: **0.1.0.1**, targeting Umbra **3.1.18.0**, Dalamud **API 15**,
+and HHE **0.6.0.0** with remaining-mark train-status data.
 
 The release build uses the installed host assemblies and excludes them from
 the output package. Headless companion tests cover labels, expansion selection,
-weighted known spawn progress, stale/invalid snapshots, missing providers,
-logout, repeated toggle requests and recovery. All **40 companion checks** and
-**12 focused HHE IPC checks** passed for the toggle integration. The preceding
-full HHE suite passed 535 cases. Publication adds repository metadata and
-installation documentation; widget behavior is unchanged.
+remaining-mark spawn progress, stale/invalid snapshots, missing providers,
+logout, repeated toggle requests and recovery. Progress checks cover completed
+marks within one expansion and across expansions, weighted remaining means,
+unknown roster entries, old providers missing completion counts, and values
+immediately below 100%. Only a fully completed selected roster can fill the bar;
+integer and tooltip rounding cannot report completion early.
+
+All **52 companion checks** and **46 focused HHE train-status checks** pass for
+this release. The latter includes provider, contract and IPC lifecycle cases.
+
+HHE supplies an optional completion count while retaining the original v1 mean
+and known-count semantics. Provider checks cover live marks, expired windows,
+the exact 100% boundary, instances, offline/maintenance state and compatibility
+with the original JSON contract.
 
 Publication checks verify:
 

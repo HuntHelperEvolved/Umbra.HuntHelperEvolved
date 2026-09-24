@@ -18,6 +18,11 @@ and `HuntHelperEvolved.ToggleTrainPopout` as a boolean function. The independent
 versioned contract is vendored unchanged in `Contract/TrainStatusContract.cs`;
 no HHE assembly is loaded by the companion.
 
+Companion 0.1.0.1 uses the optional `completedProgressCount` field to exclude
+100% marks from the inclusive v1 mean. HHE retains the original mean/count for
+older consumers. If the field is missing, the companion retains counts and the
+popout toggle, leaves progress unknown and asks for an HHE update.
+
 Repository installation follows Umbra's
 [PluginFetcher](https://github.com/una-xiv/umbra/blob/cbd00524952aa1c0386a47126f05721191f80033/Umbra/src/Plugins/Repository/PluginFetcher.cs)
 and [repository dialog](https://github.com/una-xiv/umbra/blob/cbd00524952aa1c0386a47126f05721191f80033/Umbra/src/Windows/Library/Settings/Components/RepositoryInstallerNode.cs):

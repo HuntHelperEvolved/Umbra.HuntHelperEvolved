@@ -39,10 +39,15 @@ public sealed record TrainStatusSnapshot(
 /// fractions (0..1), including confirmed alive marks at 1, or null if none are
 /// known. Unknown rows are excluded from that mean; KnownProgressCount states its
 /// coverage. Combined progress must be weighted by KnownProgressCount.
+/// CompletedProgressCount counts known fractions exactly at 1; null denotes a
+/// provider predating this optional field. Subtract that count from both the
+/// progress sum (Progress * KnownProgressCount) and count to average remaining
+/// known marks. The full roster is complete only when this count equals Total.
 /// </summary>
 public sealed record TrainExpansionStatus(
     [property: JsonPropertyName("expansion")] string Expansion,
     [property: JsonPropertyName("recorded")] int Recorded,
     [property: JsonPropertyName("total")] int Total,
     [property: JsonPropertyName("knownProgressCount")] int KnownProgressCount,
-    [property: JsonPropertyName("progress")] double? Progress);
+    [property: JsonPropertyName("progress")] double? Progress,
+    [property: JsonPropertyName("completedProgressCount")] int? CompletedProgressCount = null);
