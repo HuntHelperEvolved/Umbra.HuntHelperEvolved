@@ -1,6 +1,6 @@
 # Release validation
 
-Companion release: **0.1.0.1**, targeting Umbra **3.1.18.0**, Dalamud **API 15**,
+Companion release: **0.1.0.2**, targeting Umbra **3.1.18.0**, Dalamud **API 15**,
 and HHE **0.6.0.0** with remaining-mark train-status data.
 
 The release build uses the installed host assemblies and excludes them from
@@ -12,8 +12,15 @@ unknown roster entries, old providers missing completion counts, and values
 immediately below 100%. Only a fully completed selected roster can fill the bar;
 integer and tooltip rounding cannot report completion early.
 
-All **52 companion checks** and **46 focused HHE train-status checks** pass for
+All **52 companion checks** and **52 focused HHE train-status checks** pass for
 this release. The latter includes provider, contract and IPC lifecycle cases.
+
+The latest HHE 0.6 preview excludes killed/sniped marks from the listed count,
+including retained rows. Roster totals and spawn-progress coverage are unchanged.
+Provider checks cover all three expansions, restored marks, inconsistent sniped
+flags, fully killed trains and retained dead rows supplying instance/timer data.
+Companion 0.1.0.2 updates the tooltip and documentation; the filtering comes from
+HHE and also works with companion 0.1.0.1.
 
 HHE supplies an optional completion count while retaining the original v1 mean
 and known-count semantics. Provider checks cover live marks, expired windows,

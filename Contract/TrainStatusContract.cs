@@ -33,11 +33,12 @@ public sealed record TrainStatusSnapshot(
     [property: JsonPropertyName("expansions")] TrainExpansionStatus[] Expansions);
 
 /// <summary>
-/// Recorded counts distinct A-rank identities retained in the train, including
-/// dead/sniped marks and excluding custom flags. Total covers the full expansion
-/// roster and known zone instances. Progress is the mean of known spawn-window
-/// fractions (0..1), including confirmed alive marks at 1, or null if none are
-/// known. Unknown rows are excluded from that mean; KnownProgressCount states its
+/// Recorded counts distinct A-rank identities retained in the train, excluding
+/// dead/sniped marks and custom flags. Total covers the full expansion roster
+/// and known zone instances regardless of train status. Progress covers that
+/// full roster and is the mean of known spawn-window fractions (0..1), including
+/// confirmed alive marks at 1, or null if none are known. Unknown rows are
+/// excluded from that mean; KnownProgressCount states its
 /// coverage. Combined progress must be weighted by KnownProgressCount.
 /// CompletedProgressCount counts known fractions exactly at 1; null denotes a
 /// provider predating this optional field. Subtract that count from both the

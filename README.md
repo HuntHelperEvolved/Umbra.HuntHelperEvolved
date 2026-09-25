@@ -6,8 +6,9 @@ An Umbra toolbar widget showing the current world's hunt train:
 
 - Left-click toggles HHE's train popout: open on the first click, close on the next.
 - Right-click cycles **All → DT → EW → ShB → All**. Each widget remembers its selection.
-- The first number counts A-rank marks retained in the train list, including dead
-  or sniped marks. Custom flags and marks from other worlds are excluded.
+- The first number counts A-rank marks in the train list, excluding killed or
+  sniped marks even when retained. Custom flags and marks from other worlds are
+  excluded.
 - The second number is the full expansion roster, adjusted for known zone
   instances. Twelve is the total when all six zones have one instance; three
   instances in every zone give thirty-six.
@@ -28,6 +29,8 @@ An Umbra toolbar widget showing the current world's hunt train:
 Requires **Umbra 3.1.18.0**, **Dalamud API 15** and **Hunt Helper Evolved 0.6.0.0
 or newer** with remaining-mark train-status data. Older HHE previews can still
 show counts and toggle the popout, but need updating to calculate this bar.
+Update HHE to the latest 0.6 preview for counts that exclude killed/sniped marks;
+this filtering is supplied by HHE.
 
 > **HHE 0.6 requirement:** HHE 0.6 is currently a local preview. Its published
 > installer still serves 0.5.0.22, which does not provide this integration. The

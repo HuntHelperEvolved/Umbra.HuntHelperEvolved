@@ -29,7 +29,7 @@ public static class TrainPresentation
         {
             $"Hunt Helper Evolved · {snapshot.WorldName}",
             "Train list / total possible A-rank marks",
-            "Includes retained dead and sniped marks; excludes flags.",
+            "Listed count excludes killed/sniped marks and flags.",
             "Totals include known zone instances.",
             "",
         };
