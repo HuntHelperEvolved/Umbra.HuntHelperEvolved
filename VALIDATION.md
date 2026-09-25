@@ -15,7 +15,7 @@ integer and tooltip rounding cannot report completion early.
 All **52 companion checks** and **52 focused HHE train-status checks** pass for
 this release. The latter includes provider, contract and IPC lifecycle cases.
 
-The latest HHE 0.6 preview excludes killed/sniped marks from the listed count,
+HHE 0.6.0.0 excludes killed/sniped marks from the listed count,
 including retained rows. Roster totals and spawn-progress coverage are unchanged.
 Provider checks cover all three expansions, restored marks, inconsistent sniped
 flags, fully killed trains and retained dead rows supplying instance/timer data.
@@ -38,6 +38,8 @@ Publication checks verify:
 - A non-draft, non-prerelease GitHub release discoverable through
   `/releases/latest`, with one installable ZIP asset and a matching public download.
 
-No live FFXIV client is available for validation. Actual installation inside
-Umbra, themed rendering and mouse interaction remain in-game checks. HHE 0.6 is
-currently a local preview; the public HHE 0.5.0.22 lacks the necessary IPC.
+These checks describe the companion 0.1.0.2 build, which was validated against
+the HHE 0.6 preview. HHE 0.6.0.0 is now available as a testing release through
+its existing Dalamud repository. No live FFXIV client was available for
+validation; actual installation inside Umbra, themed rendering and mouse
+interaction remain in-game checks.

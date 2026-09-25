@@ -27,15 +27,10 @@ An Umbra toolbar widget showing the current world's hunt train:
 ## Install directly from GitHub
 
 Requires **Umbra 3.1.18.0**, **Dalamud API 15** and **Hunt Helper Evolved 0.6.0.0
-or newer** with remaining-mark train-status data. Older HHE previews can still
-show counts and toggle the popout, but need updating to calculate this bar.
-Update HHE to the latest 0.6 preview for counts that exclude killed/sniped marks;
-this filtering is supplied by HHE.
-
-> **HHE 0.6 requirement:** HHE 0.6 is currently a local preview. Its published
-> installer still serves 0.5.0.22, which does not provide this integration. The
-> companion can be installed now, but needs the matching HHE 0.6 preview or the
-> eventual 0.6 release to display data.
+or newer**. HHE 0.6.0.0 is available as a testing release through its existing
+Dalamud repository. Enable **Get plugin testing builds** and follow the
+[main HHE installation instructions](https://github.com/HuntHelperEvolved/HuntHelperEvolved#install).
+Existing HHE users can update normally in `/xlplugins`; no repository change is needed.
 
 1. Install and enable **Umbra** and a compatible **Hunt Helper Evolved** build in
    Dalamud.
@@ -58,9 +53,6 @@ Future companion releases can be discovered by Umbra's repository updater.
 If you previously installed the companion using **Install from file**, remove
 that companion entry from Umbra's Plugins list before adding this repository,
 so only one copy registers the widget. Keep the main HHE plugin enabled.
-
-The main HHE plugin uses its separate
-[Dalamud installation instructions](https://github.com/HuntHelperEvolved/HuntHelperEvolved#install).
 
 The default view shows all three expansions. Umbra's widget settings also let
 you choose the expansion directly and customize the icon, text and progress bar.
