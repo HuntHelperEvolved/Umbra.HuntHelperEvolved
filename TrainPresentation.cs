@@ -26,7 +26,7 @@ public static class TrainPresentation
         AllExpansionCodes.Where((enabledExpansions ?? Expansions).ToHashSet(StringComparer.Ordinal).Contains).ToArray();
 
     public static TrainDisplay Create(TrainStatusSnapshot? snapshot, string? mode, string unavailableReason,
-        IEnumerable<string>? enabledExpansions = null, bool showWorld = false)
+        IEnumerable<string>? enabledExpansions = null, bool showWorld = false, bool showWorldName = true)
     {
         var enabled = Enabled(enabledExpansions);
         var controls = "Left-click: toggle train popout\n" + (enabled.Length > 1
@@ -48,7 +48,7 @@ public static class TrainPresentation
         var rows = displayedExpansions
             .Select(expansion => snapshot.Expansions.Single(row => row.Expansion == expansion)).ToArray();
         var text = string.Join(", ", rows.Select(row => $"{row.Expansion}:{row.Recorded}/{row.Total}"));
-        if (showWorld) text = snapshot.WorldName + " · " + text;
+        if (showWorld && showWorldName) text = snapshot.WorldName + " · " + text;
         var progress = Summarize(rows);
         var lines = new List<string>
         {

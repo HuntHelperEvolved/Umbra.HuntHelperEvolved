@@ -30,6 +30,8 @@ public sealed class TrainStatusWidget(WidgetInfo info, string? guid = null, Dict
         ..base.GetConfigVariables(),
         new SelectWidgetConfigVariable("TrainWorld", "World", "Follow your current world, or keep this widget on one world. Uses the train and timer data available to HHE.", "0", WorldOptions())
             { Category = "Train" },
+        new BooleanWidgetConfigVariable("ShowWorldName", "Show world name", "Show the fixed world's name on the button. The tooltip always includes it.", true)
+            { Category = "Train" },
         new SelectWidgetConfigVariable("TrainExpansion", "Displayed view", "All combines the expansions enabled below. Right-click cycles only through enabled expansions.", "all",
             new() { ["all"] = "All enabled expansions", ["DT"] = "Dawntrail", ["EW"] = "Endwalker", ["ShB"] = "Shadowbringers",
                 ["SB"] = "Stormblood", ["HW"] = "Heavensward", ["ARR"] = "A Realm Reborn" }) { Category = "Train" },
@@ -88,7 +90,8 @@ public sealed class TrainStatusWidget(WidgetInfo info, string? guid = null, Dict
             connection?.Refresh(world);
         }
         var display = TrainPresentation.Create(connection?.Snapshot, mode,
-            connection?.UnavailableReason ?? "Waiting for Hunt Helper Evolved.", enabled, showWorld: world != 0);
+            connection?.UnavailableReason ?? "Waiting for Hunt Helper Evolved.", enabled,
+            showWorld: world != 0, showWorldName: GetConfigValue<bool>("ShowWorldName"));
         SetText(display.Text);
         SetTooltip(display.Tooltip);
         SetProgressBarValue(display.Progress);

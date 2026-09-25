@@ -34,9 +34,12 @@ An Umbra toolbar widget showing a hunt train for your current world or a fixed w
 Open a widget's settings and select **Train**:
 
 - **World:** Follow **Current world**, or choose a fixed world from the list.
-  Fixed widgets include the world name in their label and keep showing that
+  Fixed widgets show the world name by default and keep showing that
   world's available HHE data when you travel. Selecting a world does not travel
   there or obtain data HHE has not received; unknown timers stay unknown.
+- **Show world name:** Turn this off to hide the fixed world's name from the
+  button and save space. The world remains visible in the tooltip. Enabled by
+  default, and saved separately for each widget.
 - **Enabled expansions:** Choose any combination of **A Realm Reborn (ARR)**,
   **Heavensward (HW)**, **Stormblood (SB)**, **Shadowbringers (ShB)**,
   **Endwalker (EW)** and **Dawntrail (DT)**. Existing defaults stay DT/EW/ShB;

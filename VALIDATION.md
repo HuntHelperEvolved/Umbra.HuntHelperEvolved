@@ -36,7 +36,9 @@ No live FFXIV client was available. In-game validation remains:
    confirm the fixed-world name and data remain selected. Unavailable timer data
    should stay unknown. Check logout, login and plugin reload recovery.
 4. Confirm left-click opens and closes the shared HHE train popout and inspect
-   settings layout, text truncation and themed rendering.
+   settings layout, text truncation and themed rendering. Turn off Show world
+   name on one fixed-world widget; only its button label should shorten, with
+   the world still shown in the tooltip and counts/progress unchanged.
 
 GitHub discovery and public-download checks apply when this update is published;
 no new release, tag or installer-feed change is part of local staging.
