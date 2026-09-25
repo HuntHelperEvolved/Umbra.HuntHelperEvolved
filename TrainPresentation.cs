@@ -8,22 +8,47 @@ public sealed record TrainDisplay(string Text, string Tooltip, int Progress);
 public static class TrainPresentation
 {
     private static readonly string[] Expansions = ["DT", "EW", "ShB"];
-    public static string NormalizeMode(string? mode) => mode is "DT" or "EW" or "ShB" ? mode : "all";
-    public static string NextMode(string? mode) => NormalizeMode(mode) switch
-    {
-        "all" => "DT", "DT" => "EW", "EW" => "ShB", _ => "all",
-    };
+    public static IReadOnlyList<string> AllExpansionCodes { get; } = Array.AsReadOnly<string>(["DT", "EW", "ShB", "SB", "HW", "ARR"]);
 
-    public static TrainDisplay Create(TrainStatusSnapshot? snapshot, string? mode, string unavailableReason)
+    public static string NormalizeMode(string? mode, IEnumerable<string>? enabledExpansions = null) =>
+        mode is not null && Enabled(enabledExpansions).Contains(mode) ? mode : "all";
+
+    public static string NextMode(string? mode, IEnumerable<string>? enabledExpansions = null)
     {
-        const string controls = "Left-click: toggle train popout\nRight-click: All → DT → EW → ShB";
+        var enabled = Enabled(enabledExpansions);
+        if (enabled.Length == 0) return "all";
+        if (enabled.Length == 1) return enabled[0];
+        var index = Array.IndexOf(enabled, NormalizeMode(mode, enabled));
+        return index == enabled.Length - 1 ? "all" : enabled[index + 1];
+    }
+
+    private static string[] Enabled(IEnumerable<string>? enabledExpansions) =>
+        AllExpansionCodes.Where((enabledExpansions ?? Expansions).ToHashSet(StringComparer.Ordinal).Contains).ToArray();
+
+    public static TrainDisplay Create(TrainStatusSnapshot? snapshot, string? mode, string unavailableReason,
+        IEnumerable<string>? enabledExpansions = null, bool showWorld = false)
+    {
+        var enabled = Enabled(enabledExpansions);
+        var controls = "Left-click: toggle train popout\n" + (enabled.Length > 1
+            ? "Right-click: All → " + string.Join(" → ", enabled)
+            : enabled.Length == 1 ? $"Showing {enabled[0]}; enable more expansions to cycle."
+            : "Choose expansions in this widget's settings.");
+        if (enabled.Length == 0)
+            return new("HHE: configure", "Enable at least one expansion in this widget's settings.\n\n" + controls, 0);
         if (snapshot == null) return new("HHE unavailable", unavailableReason + "\n\n" + controls, 0);
-        if (!snapshot.LoggedIn) return new("HHE: waiting", "Log in or wait for your area transfer to finish.\n\n" + controls, 0);
+        if (!snapshot.LoggedIn) return new("HHE: waiting", (showWorld
+            ? "Waiting for the selected world's train status. Log in or wait for your area transfer to finish."
+            : "Log in or wait for your area transfer to finish.") + "\n\n" + controls, 0);
 
-        mode = NormalizeMode(mode);
-        var rows = Expansions.Where(expansion => mode == "all" || expansion == mode)
+        mode = NormalizeMode(mode, enabled);
+        var displayedExpansions = enabled.Where(expansion => mode == "all" || expansion == mode).ToArray();
+        var missing = displayedExpansions.Where(expansion => !snapshot.Expansions.Any(row => row.Expansion == expansion)).ToArray();
+        if (missing.Length != 0)
+            return new("HHE: update needed", $"Hunt Helper Evolved · {snapshot.WorldName}\nUpdate Hunt Helper Evolved to show {string.Join(", ", missing)}.\n\n" + controls, 0);
+        var rows = displayedExpansions
             .Select(expansion => snapshot.Expansions.Single(row => row.Expansion == expansion)).ToArray();
         var text = string.Join(", ", rows.Select(row => $"{row.Expansion}:{row.Recorded}/{row.Total}"));
+        if (showWorld) text = snapshot.WorldName + " · " + text;
         var progress = Summarize(rows);
         var lines = new List<string>
         {

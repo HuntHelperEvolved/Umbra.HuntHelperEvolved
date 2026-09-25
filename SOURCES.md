@@ -18,6 +18,13 @@ and `HuntHelperEvolved.ToggleTrainPopout` as a boolean function. The independent
 versioned contract is vendored unchanged in `Contract/TrainStatusContract.cs`;
 no HHE assembly is loaded by the companion.
 
+Staged HHE 0.6.0.1 adds `HuntHelperEvolved.GetTrainStatusV2(uint worldId)`, using
+zero for the current world or a public world ID. Its version 2 JSON includes
+DT/EW/ShB/SB/HW/ARR. V1 remains unchanged for earlier companions. The companion
+uses V1 only when the V2 gate is absent and the requested world is current.
+World options come from the game's public World sheet; widget settings are
+persisted per instance by Umbra's `ToolbarWidget`.
+
 Companion 0.1.0.1 uses the optional `completedProgressCount` field to exclude
 100% marks from the inclusive v1 mean. HHE retains the original mean/count for
 older consumers. If the field is missing, the companion retains counts and the

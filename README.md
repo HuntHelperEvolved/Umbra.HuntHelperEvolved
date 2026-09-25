@@ -1,17 +1,22 @@
 # Hunt Helper Evolved for Umbra
 
-An Umbra toolbar widget showing the current world's hunt train:
+An Umbra toolbar widget showing a hunt train for your current world or a fixed world:
 
 `DT:0/12, EW:0/12, ShB:0/12`
 
+> **0.2.0.0 local staging:** Fixed worlds and all-expansion settings require the
+> matching HHE **0.6.0.1** staged build. Public releases remain companion 0.1.0.2
+> and HHE 0.6.0.0 until this update is published.
+
 - Left-click toggles HHE's train popout: open on the first click, close on the next.
-- Right-click cycles **All → DT → EW → ShB → All**. Each widget remembers its selection.
+- Right-click cycles **All → each enabled expansion → All**. Each widget remembers
+  its own selection. With one expansion enabled, the view stays on that expansion.
 - The first number counts A-rank marks in the train list, excluding killed or
   sniped marks even when retained. Custom flags and marks from other worlds are
   excluded.
 - The second number is the full expansion roster, adjusted for known zone
-  instances. Twelve is the total when all six zones have one instance; three
-  instances in every zone give thirty-six.
+  instances. HW through DT each have twelve marks with one instance per zone,
+  or thirty-six with three. ARR has seventeen before instance adjustments.
 - The progress bar averages the displayed expansions' known A-rank spawn-window
   progress **below 100%**. Marks already at 100% are excluded until every mark in
   the displayed roster is at 100%, when the bar fills completely. For example,
@@ -24,11 +29,33 @@ An Umbra toolbar widget showing the current world's hunt train:
   sync disconnection leaves HHE's retained local data available and is noted on
   hover. A world reported offline has unknown spawn progress.
 
+## Configure each widget
+
+Open a widget's settings and select **Train**:
+
+- **World:** Follow **Current world**, or choose a fixed world from the list.
+  Fixed widgets include the world name in their label and keep showing that
+  world's available HHE data when you travel. Selecting a world does not travel
+  there or obtain data HHE has not received; unknown timers stay unknown.
+- **Enabled expansions:** Choose any combination of **A Realm Reborn (ARR)**,
+  **Heavensward (HW)**, **Stormblood (SB)**, **Shadowbringers (ShB)**,
+  **Endwalker (EW)** and **Dawntrail (DT)**. Existing defaults stay DT/EW/ShB;
+  enable the older expansions here to include them. ARR has 17 possible marks
+  before instance adjustments; the other expansions have 12 each.
+- **Displayed view:** Choose **All enabled expansions** or an enabled expansion.
+  All combines only that widget's selections, including its progress bar. A
+  disabled view returns to All; disabling every expansion shows a settings hint.
+
+Add multiple copies for different worlds or expansion groups. Their settings
+and right-click selection are saved separately. Left-click opens the same HHE
+train popout and does not change the character's world.
+
 ## Install directly from GitHub
 
-Requires **Umbra 3.1.18.0**, **Dalamud API 15** and **Hunt Helper Evolved 0.6.0.0
-or newer**. HHE 0.6.0.0 is available as a testing release through its existing
-Dalamud repository. Enable **Get plugin testing builds** and follow the
+Requires **Umbra 3.1.18.0**, **Dalamud API 15** and **Hunt Helper Evolved 0.6.0.1
+or newer** for all settings. With HHE 0.6.0.0, current-world DT/EW/ShB views still
+work; fixed worlds and older expansions show an update hint. For published builds,
+enable **Get plugin testing builds** and follow the
 [main HHE installation instructions](https://github.com/HuntHelperEvolved/HuntHelperEvolved#install).
 Existing HHE users can update normally in `/xlplugins`; no repository change is needed.
 
@@ -54,8 +81,8 @@ If you previously installed the companion using **Install from file**, remove
 that companion entry from Umbra's Plugins list before adding this repository,
 so only one copy registers the widget. Keep the main HHE plugin enabled.
 
-The default view shows all three expansions. Umbra's widget settings also let
-you choose the expansion directly and customize the icon, text and progress bar.
+The default view shows DT/EW/ShB. Umbra's widget settings also let you customize
+the icon, text and progress bar.
 
 ## Build and package
 

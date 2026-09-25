@@ -1,45 +1,42 @@
-# Release validation
+# Staged validation
 
-Companion release: **0.1.0.2**, targeting Umbra **3.1.18.0**, Dalamud **API 15**,
-and HHE **0.6.0.0** with remaining-mark train-status data.
+Companion **0.2.0.0**, targeting Umbra **3.1.18.0**, Dalamud **API 15** and
+the matching HHE **0.6.0.1** staged build. This update is prepared locally;
+the public companion remains 0.1.0.2 and public HHE remains 0.6.0.0.
 
-The release build uses the installed host assemblies and excludes them from
-the output package. Headless companion tests cover labels, expansion selection,
-remaining-mark spawn progress, stale/invalid snapshots, missing providers,
-logout, repeated toggle requests and recovery. Progress checks cover completed
-marks within one expansion and across expansions, weighted remaining means,
-unknown roster entries, old providers missing completion counts, and values
-immediately below 100%. Only a fully completed selected roster can fill the bar;
-integer and tooltip rounding cannot report completion early.
+All **80 companion checks** and **568 HHE checks** pass, including **69 focused
+HHE train-status checks**. Both Release builds use the installed host assemblies.
+Headless checks cover:
 
-All **52 companion checks** and **52 focused HHE train-status checks** pass for
-this release. The latter includes provider, contract and IPC lifecycle cases.
+- Per-widget expansion subsets, six-expansion labels, All and right-click
+  cycling, a single enabled expansion and no enabled expansions.
+- Current/fixed world requests, world mismatch rejection, changing selections,
+  missing or reloading providers, stale/invalid data, logout and popout toggling.
+- V1 compatibility for older HHE/companions, and explicit update hints when
+  a selected world or expansion requires V2.
+- Six-expansion roster totals, ARR's 17 marks and differing spawn windows,
+  world/instance isolation, retained killed/sniped rows and offline worlds.
+- Remaining-mark progress, weighted expansion averages, unknown timers and
+  exact completion boundaries. Killed/sniped marks affect only the listed count.
+- Framework-only capture, bounded world requests, expiry, failure recovery and
+  timestamps from real captures rather than IPC reads.
 
-HHE 0.6.0.0 excludes killed/sniped marks from the listed count,
-including retained rows. Roster totals and spawn-progress coverage are unchanged.
-Provider checks cover all three expansions, restored marks, inconsistent sniped
-flags, fully killed trains and retained dead rows supplying instance/timer data.
-Companion 0.1.0.2 updates the tooltip and documentation; the filtering comes from
-HHE and also works with companion 0.1.0.1.
+Package checks verify the matching MIT IPC contract, ZIP integrity, safe paths,
+SHA-256 checksums and an allowlist containing only the companion DLL, dependency
+metadata, documentation and licences. Host/game assemblies, private tests and
+debug symbols are excluded.
 
-HHE supplies an optional completion count while retaining the original v1 mean
-and known-count semantics. Provider checks cover live marks, expired windows,
-the exact 100% boundary, instances, offline/maintenance state and compatibility
-with the original JSON contract.
+No live FFXIV client was available. In-game validation remains:
 
-Publication checks verify:
+1. Add two widget copies with different worlds and expansion selections; reload
+   Umbra and confirm their settings remain separate.
+2. Enable ARR/HW/SB and check labels, roster totals, tooltips and progress. Try
+   All, right-click cycling, one enabled expansion and none.
+3. Travel while one widget follows Current world and another stays fixed;
+   confirm the fixed-world name and data remain selected. Unavailable timer data
+   should stay unknown. Check logout, login and plugin reload recovery.
+4. Confirm left-click opens and closes the shared HHE train popout and inspect
+   settings layout, text truncation and themed rendering.
 
-- A source allowlist excluding private tests, build output, local configuration
-  and credentials, with public GitHub noreply commit identity.
-- Agreement between the vendored MIT IPC contract and the matching HHE source.
-- A package containing one companion DLL, its dependency metadata, documentation
-  and licences, without debug symbols or host/game DLLs.
-- ZIP integrity, safe extraction paths and a SHA-256 checksum.
-- A non-draft, non-prerelease GitHub release discoverable through
-  `/releases/latest`, with one installable ZIP asset and a matching public download.
-
-These checks describe the companion 0.1.0.2 build, which was validated against
-the HHE 0.6 preview. HHE 0.6.0.0 is now available as a testing release through
-its existing Dalamud repository. No live FFXIV client was available for
-validation; actual installation inside Umbra, themed rendering and mouse
-interaction remain in-game checks.
+GitHub discovery and public-download checks apply when this update is published;
+no new release, tag or installer-feed change is part of local staging.
