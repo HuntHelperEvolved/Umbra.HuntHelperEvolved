@@ -1,12 +1,22 @@
-# Staged validation
+# Release preparation validation — 27 September 2026
 
 Companion **0.2.0.0**, targeting Umbra **3.1.18.0**, Dalamud **API 15** and
-the matching HHE **0.6.0.1** staged build. This update is prepared locally;
-the public companion remains 0.1.0.2 and public HHE remains 0.6.0.0.
+the matching HHE **0.6.0.1** build. This update was approved for release on
+27 September 2026.
 
-All **80 companion checks** and **568 HHE checks** pass, including **69 focused
-HHE train-status checks**. Both Release builds use the installed host assemblies.
-Headless checks cover:
+Fresh checks for companion commit `aa801415a2c33367298ef9fb9cfb0cac33f23ec8`
+completed on 27 September 2026:
+
+- The Release build succeeded with **0 warnings and 0 errors**, using installed
+  Umbra **3.1.18.0** and Dalamud **API 15** host assemblies.
+- All **80 companion checks passed**, with **0 failures and 0 skips**. The first
+  sandboxed invocation was unable to open the test runner's local communication
+  socket; rerunning with the required permission completed successfully.
+- The vendored MIT train-status contract matches the corresponding HHE source
+  byte for byte. The built assembly reports version **0.2.0.0**.
+
+These results concern the companion; the main HHE release is validated
+separately. Headless companion checks cover:
 
 - Per-widget expansion subsets, six-expansion labels, All and right-click
   cycling, a single enabled expansion and no enabled expansions.
@@ -14,19 +24,23 @@ Headless checks cover:
   missing or reloading providers, stale/invalid data, logout and popout toggling.
 - V1 compatibility for older HHE/companions, and explicit update hints when
   a selected world or expansion requires V2.
-- Six-expansion roster totals, ARR's 17 marks and differing spawn windows,
-  world/instance isolation, retained killed/sniped rows and offline worlds.
+- Display of six-expansion snapshots, ARR roster totals, selected-world
+  validation, retained killed/sniped counts and offline-world responses.
 - Remaining-mark progress, weighted expansion averages, unknown timers and
   exact completion boundaries. Killed/sniped marks affect only the listed count.
-- Framework-only capture, bounded world requests, expiry, failure recovery and
-  timestamps from real captures rather than IPC reads.
+- Missing or faulty providers, snapshot freshness, failure recovery and
+  selection changes that clear data from the previous world.
 
-Package checks verify the matching MIT IPC contract, ZIP integrity, safe paths,
-SHA-256 checksums and an allowlist containing only the companion DLL, dependency
-metadata, documentation and licences. Host/game assemblies, private tests and
-debug symbols are excluded.
+Packaging uses `python3 tools/package_release.py`. Its checks verify ZIP
+integrity, SHA-256 checksums, absence of local path markers and an allowlist
+containing only the companion DLL, dependency metadata, documentation and
+licences. Host/game assemblies, private tests and debug symbols are excluded.
+The package and checksum are approved for release. Public-download and GitHub
+discovery checks are performed after publication.
 
-No live FFXIV client was available. In-game validation remains:
+No companion UI automation or in-game companion validation was performed during
+this preparation. The user's HHE map inspection does not validate this widget.
+In-game validation remains:
 
 1. Add two widget copies with different worlds and expansion selections; reload
    Umbra and confirm their settings remain separate.
@@ -40,5 +54,5 @@ No live FFXIV client was available. In-game validation remains:
    name on one fixed-world widget; only its button label should shorten, with
    the world still shown in the tooltip and counts/progress unchanged.
 
-GitHub discovery and public-download checks apply when this update is published;
-no new release, tag or installer-feed change is part of local staging.
+Private tests are intentionally excluded from the public source tree and ZIP.
+Approval does not change the in-game validation limits listed above.

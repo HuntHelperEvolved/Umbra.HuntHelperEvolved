@@ -4,9 +4,8 @@ An Umbra toolbar widget showing a hunt train for your current world or a fixed w
 
 `DT:0/12, EW:0/12, ShB:0/12`
 
-> **0.2.0.0 local staging:** Fixed worlds and all-expansion settings require the
-> matching HHE **0.6.0.1** staged build. Public releases remain companion 0.1.0.2
-> and HHE 0.6.0.0 until this update is published.
+> **0.2.0.0:** Choose a current or fixed world and any combination of expansions
+> for each widget. All new settings require **HHE 0.6.0.1** or newer.
 
 - Left-click toggles HHE's train popout: open on the first click, close on the next.
 - Right-click cycles **All → each enabled expansion → All**. Each widget remembers
@@ -107,4 +106,5 @@ requests and does not bundle HHE, Umbra or game assemblies.
 The extension uses AGPL-3.0-or-later. The standalone JSON contract in `Contract/`
 is copied from HHE under its MIT licence in `CONTRACT-LICENSE.txt`.
 See [SOURCES.md](SOURCES.md) for API references and [VALIDATION.md](VALIDATION.md)
-for release checks. In-game rendering and click validation remain outstanding.
+for the 27 September 2026 build, headless-test and package checks. Companion
+rendering, settings persistence and clicks still require in-game validation.
